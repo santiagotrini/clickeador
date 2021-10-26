@@ -11,3 +11,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App {
+  border: 3px solid blue;
+}
+
+.Timer {
+  border: 3px solid red;
+}
+
+.Play {
+  border: 3px solid green;
+  text-align: center;
+}
+
+.Score {
+  border: 3px solid violet;
+}
+
+.HiScores {
+  border: 3px solid pink;
+}
+
+.Top {
+  border: 2px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.PlayArea {
+  margin: 10px;
+  width: 300px;
+  height: 200px;
+  background: gray;
+}
