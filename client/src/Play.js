@@ -1,18 +1,14 @@
-import { useState } from 'react';
-
 const Play = props => {
-  const [clicks, setClicks] = useState(0);
-  const [playing, setPlaying] = useState(false);
+  const {
+    startTimer,
+    playing,
+    clicks,
+    setClicks
+  } = props;
+
   const handleClick = () => {
     if (playing)
       setClicks(clicks + 1);
-  };
-  const countdown = () => {
-    setPlaying(true);
-    setClicks(0);
-    setTimeout(() => {
-      setPlaying(false);
-    }, 10000);
   };
   return (
     <div className="Play">
@@ -20,7 +16,7 @@ const Play = props => {
         className="PlayArea"
         onClick={handleClick}
       />
-      <button onClick={countdown}>Jugar</button>
+      <button onClick={startTimer}>Jugar</button>
       <h2>Clicks: {clicks}</h2>
     </div>
   );
