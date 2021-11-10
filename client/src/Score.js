@@ -1,7 +1,9 @@
 const Score = props => {
+  const { score } = props;
+
   return (
     <div className="Score">
-      <h1>Score</h1>
+      <h1>Puntaje: {score}</h1>
     </div>
   );
 };

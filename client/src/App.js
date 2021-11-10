@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 // componentes
 import Timer from './Timer';
 import Play from './Play';
@@ -7,6 +7,13 @@ import HiScores from './HiScores';
 
 const App = () => {
   const [clicks, setClicks] = useState(0);
+  // usar el hook useRef para obtener el valor correcto
+  // de clicks en el setTimeout
+  // ver https://github.com/facebook/react/issues/14010
+  const clicksRef = useRef(clicks);
+  clicksRef.current = clicks;
+
+  const [score, setScore] = useState('');
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(10);
   const tick = () => {
@@ -21,6 +28,8 @@ const App = () => {
     }, 1000);
     setTimeout(() => {
       setPlaying(false);
+      console.log(clicksRef.current); // debug
+      setScore(clicksRef.current * 100);
       clearInterval(interval);
     }, 10000);
   };
@@ -36,7 +45,7 @@ const App = () => {
           playing={playing}
         />
       </div>
-      <Score />
+      <Score score={score} />
       <HiScores />
     </div>
   );
