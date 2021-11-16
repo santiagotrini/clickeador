@@ -4,17 +4,7 @@ const url = 'http://localhost:4000/api/scores';
 
 const HiScores = props => {
 
-  const [scores, setScores] = useState([]);
-
-  useEffect(() => {
-    axios.get(url)
-      .then(res => {
-        console.log('Llendo a buscar datos al backend...');
-        console.log(res.data);
-        setScores(res.data);
-      })
-      .catch(err => console.log(err));
-  }, []);
+  const { scores } = props;
 
   return (
     <div className="HiScores">

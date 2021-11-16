@@ -1,4 +1,5 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 // componentes
 import Timer from './Timer';
 import Play from './Play';
@@ -12,6 +13,20 @@ const App = () => {
   // ver https://github.com/facebook/react/issues/14010
   const clicksRef = useRef(clicks);
   clicksRef.current = clicks;
+
+  const [scores, setScores] = useState([]);
+
+  useEffect(() => {
+    const url = 'http://localhost:4000/api/scores';
+    axios.get(url)
+      .then(res => {
+        console.log('Llendo a buscar datos al backend...');
+        console.log(res.data);
+        setScores(res.data);
+      })
+      .catch(err => console.log(err));
+  }, []);
+
 
   const [score, setScore] = useState('');
   const [playing, setPlaying] = useState(false);
@@ -30,6 +45,17 @@ const App = () => {
       setPlaying(false);
       console.log(clicksRef.current); // debug
       setScore(clicksRef.current * 100);
+      const player = prompt('Ingrese su nombre');
+      const datos = {
+        score: clicksRef.current * 100,
+        player: player
+      };
+      const url = 'http://localhost:4000/api/scores';
+      axios.post(url, datos)
+        .then(res => {
+          setScores([res.data, ...scores]);
+        })
+        .catch(err => console.log(err));
       clearInterval(interval);
     }, 10000);
   };
@@ -46,7 +72,7 @@ const App = () => {
         />
       </div>
       <Score score={score} />
-      <HiScores />
+      <HiScores scores={scores} />
     </div>
   );
 }

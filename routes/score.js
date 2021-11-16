@@ -15,7 +15,7 @@ router.get('/api/scores', (req, res) => {
 
 router.post('/api/scores', (req, res) => {
   const { score, player } = req.body
-  const newScore = new Score({ newScore, player });
+  const newScore = new Score({ score, player });
   newScore.save((err, score) => res.json(score));
 });
 
